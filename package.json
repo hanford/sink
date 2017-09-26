@@ -1,0 +1,17 @@
+{
+  "name": "sink",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "~2.1.0",
+    "chokidar": "~1.7.0",
+    "fs-compare": "0.0.4",
+    "fs-extra": "~4.0.2"
+  }
+}
