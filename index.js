@@ -5,20 +5,20 @@ const os = require('os')
 const watcher = require('chokidar')
 const chalk = require('chalk')
 
-const sync = `${os.homedir()}/dev`
-const iCloud = `${os.homedir()}/Library/Mobile\ Documents/com~apple~CloudDocs/sink`
+const WATCH_PATH = `${os.homedir()}/dev`
+const ICLOUD_PATH = `${os.homedir()}/Library/Mobile Documents/com~apple~CloudDocs/sink`
 
 console.log(`
   ☁️
-  Watching: ${chalk.cyan.underline.bold(sync)}
-  Destination: ${chalk.cyan.underline.bold(iCloud)}
+  Watching: ${chalk.cyan.underline.bold(WATCH_PATH)}
+  Destination: ${chalk.cyan.underline.bold(ICLOUD_PATH)}
 `)
 
 watcher
-  .watch(sync, {ignored: /node_modules/})
+  .watch(WATCH_PATH, {ignored: /node_modules/})
   .on('add', async loc => {
     const match = getChangedFileName(loc)
-    const iCloudPath = path.join(iCloud, match)
+    const iCloudPath = path.join(ICLOUD_PATH, match)
     const exists = await fs.exists(iCloudPath)
 
     if (exists) {
@@ -47,14 +47,14 @@ watcher
     const match = getChangedFileName(loc)
 
     try {
-      await moveFile(loc, path.join(iCloud, match))
+      await moveFile(loc, path.join(ICLOUD_PATH, match))
     } catch (err) {
       console.log(err)
     }
   })
   .on('unlink', async loc => {
     const match = getChangedFileName(loc)
-    const iCloudMatch = path.join(iCloud, match)
+    const iCloudMatch = path.join(ICLOUD_PATH, match)
 
     try {
       await fs.remove(iCloudMatch)
